@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Sharma"
+    given-names: "Richa"
+title: "Computational-Physics-Bench: Evaluating AI Agents on Computational Workflows in the Natural Sciences"
+version: 1.0.0
+date-released: 2026-02-01
+url: "https://github.com/Icosian-World/computational-physics-bench"
+repository-code: "https://github.com/Icosian-World/computational-physics-bench"
+license: Apache-2.0
+keywords:
+  - benchmark
+  - physics
+  - computational-science
+  - ai-agents
+  - harbor-framework
