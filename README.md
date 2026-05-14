@@ -1,3 +1,4 @@
+```text
 ##############################################################################################
 #                                                                                            #
 #   ______                                     __        __  _                   __          #
@@ -13,6 +14,8 @@
 #/_/   /_/ /_/\__, /____/_/\___/____/  /_____/\___/_/ /_/\___/_/ /_/             \ /__________\#
 #            /____/                                                               `-'        #
 ##############################################################################################
+```
+
 
 [![Website](https://img.shields.io/badge/Terminal--Bench-black?style=for-the-badge&logo=google-chrome&logoColor=white)](https://www.tbench.ai/news/tb-science-announcement)
 [![Website](https://img.shields.io/badge/Harbor-white?style=for-the-badge&logo=google-chrome&logoColor=black)](https://harborframework.com)
