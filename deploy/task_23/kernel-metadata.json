@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-23-surface-phonon-max-wavelength",
+ "title": "FP-23 Surface-Phonon Max Wavelength",
+ "code_file": "task-23.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-26-relativistic-projectile-speed",
+ "title": "FP-26 Relativistic Projectile Speed",
+ "code_file": "task-26.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

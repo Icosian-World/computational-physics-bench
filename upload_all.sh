@@ -1,0 +1,32 @@
+#!/bin/bash
+export KAGGLE_CONFIG_DIR=~/.kaggle
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_11
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_12
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_13
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_14
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_15
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_16
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_17
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_18
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_19
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_20
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_21
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_22
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_23
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_24
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_25
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_26
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_27
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_28
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_29
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_30
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_31
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_32
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_33
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_34
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_35
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_36
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_37
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_38
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_39
+/Users/richa/Library/Python/3.9/bin/kaggle kernels push -p deploy/task_40

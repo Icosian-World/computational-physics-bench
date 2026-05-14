@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-38-spring-extension-rate",
+ "title": "FP-38 Spring Extension Rate",
+ "code_file": "task-38.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

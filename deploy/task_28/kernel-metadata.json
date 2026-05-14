@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-28-maximum-likelihood-bearing",
+ "title": "FP-28 Maximum Likelihood Bearing",
+ "code_file": "task-28.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

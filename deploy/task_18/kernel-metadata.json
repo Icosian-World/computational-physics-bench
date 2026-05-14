@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-18-interceptor-asymptotic-distance",
+ "title": "FP-18 Interceptor Asymptotic Distance",
+ "code_file": "task-18.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

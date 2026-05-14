@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-19-bead-on-accelerating-wire",
+ "title": "FP-19 Bead on Accelerating Wire",
+ "code_file": "task-19.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

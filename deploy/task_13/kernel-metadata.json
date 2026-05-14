@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-13-scattering-amplitude-constant",
+ "title": "FP-13 Scattering Amplitude Constant",
+ "code_file": "task-13.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

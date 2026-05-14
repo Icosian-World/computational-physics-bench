@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-33-lorentz-scalar-a-a",
+ "title": "FP-33 Lorentz Scalar a*a",
+ "code_file": "task-33.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

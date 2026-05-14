@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-40-calibration-boom-deflection",
+ "title": "FP-40 Calibration Boom Deflection",
+ "code_file": "task-40.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

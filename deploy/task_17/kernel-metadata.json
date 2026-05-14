@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-17-superconducting-ring-max-cooper-speed",
+ "title": "FP-17 Superconducting Ring Max Cooper Speed",
+ "code_file": "task-17.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

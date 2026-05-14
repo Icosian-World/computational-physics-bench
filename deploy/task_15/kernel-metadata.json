@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-15-rotating-wire-action",
+ "title": "FP-15 Rotating Wire Action",
+ "code_file": "task-15.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

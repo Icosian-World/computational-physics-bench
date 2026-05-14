@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-21-nitrate-ion-max-wavelength",
+ "title": "FP-21 Nitrate Ion Max Wavelength",
+ "code_file": "task-21.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

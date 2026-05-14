@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-14-pt-symmetric-parity-im-p",
+ "title": "FP-14 PT-Symmetric Parity Im(P12)",
+ "code_file": "task-14.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

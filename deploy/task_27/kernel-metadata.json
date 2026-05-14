@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-27-sphere-drone-bearing-angle",
+ "title": "FP-27 Sphere Drone Bearing Angle",
+ "code_file": "task-27.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

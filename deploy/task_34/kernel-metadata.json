@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-34-parent-lab-energy",
+ "title": "FP-34 Parent Lab Energy",
+ "code_file": "task-34.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}

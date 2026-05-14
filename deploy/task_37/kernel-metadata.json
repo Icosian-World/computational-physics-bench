@@ -1,0 +1,10 @@
+{
+ "id": "richaflutr/fp-37-energy-per-length-de-dl",
+ "title": "FP-37 Energy per Length dE/dL",
+ "code_file": "task-37.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": "true",
+ "enable_gpu": "false",
+ "enable_internet": "true"
+}
