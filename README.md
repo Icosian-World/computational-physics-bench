@@ -17,16 +17,7 @@
 ```
 
 
-[![Website](https://img.shields.io/badge/Terminal--Bench-black?style=for-the-badge&logo=google-chrome&logoColor=white)](https://www.tbench.ai/news/tb-science-announcement)
-[![Website](https://img.shields.io/badge/Harbor-white?style=for-the-badge&logo=google-chrome&logoColor=black)](https://harborframework.com)
-[![](https://dcbadge.limes.pink/api/server/https://discord.gg/ZvcWupVXjz)](https://discord.gg/ZvcWupVXjz)
-[![Docs](https://img.shields.io/badge/Docs-000000?style=for-the-badge&logo=mdbook&color=105864)](https://harborframework.com/docs/running-tbench)
 
-[![License](https://img.shields.io/badge/license-Apache%202.0-black.svg)](LICENSE)
-[![Tasks](https://img.shields.io/badge/tasks-0-white.svg)](https://github.com/Icosian-World/computational-physics-bench/tree/main/tasks)
-[![Contributors](https://img.shields.io/github/contributors/Icosian-World/computational-physics-bench?color=white)](https://github.com/Icosian-World/computational-physics-bench/graphs/contributors)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/Icosian-World/computational-physics-bench?color=white)](https://github.com/Icosian-World/computational-physics-bench/pulls)
-[![GitHub stars](https://img.shields.io/github/stars/Icosian-World/computational-physics-bench?style=social)](https://github.com/Icosian-World/computational-physics-bench)
 
 ## Overview
 [Computational-Physics-Bench](https://github.com/Icosian-World/computational-physics-bench) is a benchmark for evaluating AI agents on complex real-world computational physics workflows in terminal environments. Building on the success of [Terminal-Bench](https://www.tbench.ai/)—which has appeared on model cards for [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6), [GPT-5.3-Codex](https://openai.com/index/introducing-gpt-5-3-codex/), and [Gemini 3.1 Pro](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/)—CP-Bench focuses specifically on computational research workflows across the physical sciences. Our goal is to catalyze a "Claude Code / Codex for Science" moment: a benchmark that drives the development of AI systems capable of reliably accelerating end-to-end scientific research.
