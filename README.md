@@ -20,7 +20,7 @@
 
 
 ## Overview
-[Computational-Physics-Bench](https://github.com/Icosian-World/computational-physics-bench) is a benchmark for evaluating AI agents on complex real-world computational physics workflows in terminal environments. Building on the success of [Terminal-Bench](https://www.tbench.ai/)—which has appeared on model cards for [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6), [GPT-5.3-Codex](https://openai.com/index/introducing-gpt-5-3-codex/), and [Gemini 3.1 Pro](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/)—CP-Bench focuses specifically on computational research workflows across the physical sciences. Our goal is to catalyze a "Claude Code / Codex for Science" moment: a benchmark that drives the development of AI systems capable of reliably accelerating end-to-end scientific research.
+[Computational-Physics-Bench](https://github.com/Icosian-World/computational-physics-bench) is a benchmark for evaluating AI agents on complex real-world computational physics workflows in terminal environments. CP-Bench focuses specifically on computational research workflows across the physical sciences. Our goal is to catalyze a "Claude Code / Codex for Science" moment: a benchmark that drives the development of AI systems capable of reliably accelerating end-to-end scientific research.
 
 ## Quickstart
 
