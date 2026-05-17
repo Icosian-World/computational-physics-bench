@@ -1,0 +1,441 @@
+from pathlib import Path
+
+rubric = r'''# Computational Physics Bench Rubric
+# Original rubric for evaluating Harbor / Terminal-Bench-style computational physics tasks.
+# Focus: simulator reconstruction, inverse problems, finite-time scaling, phase-transition inference,
+# stochastic dynamics, and physically grounded verification.
+
+schema_version = "1.0"
+rubric_name = "computational-physics-bench"
+rubric_description = "Task-quality rubric for computational-physics agent benchmarks."
+
+[[criteria]]
+name = "physics_target"
+description = "Task has a concrete computational-physics objective, not just coding or plotting."
+guidance = """
+The task must ask for a scientifically meaningful quantity or artifact: a simulator, phase boundary,
+transport exponent, conserved quantity, spectral estimate, surrogate dynamics model, stability region,
+inverse parameter estimate, or validated prediction.
+
+The objective should matter in a real physics workflow. For example, estimating a localization threshold
+from finite-time quantum-walk data is acceptable; simply plotting a provided array is not.
+
+PASS if the final output corresponds to a real physical observable, model, or inference target.
+FAIL if the task is mostly generic programming, formatting, visualization, or data munging without a
+substantive physics objective.
+"""
+
+[[criteria]]
+name = "model_reconstruction"
+description = "Task requires reconstructing, implementing, or validating nontrivial physical dynamics."
+guidance = """
+A strong task should require the agent to understand and implement governing dynamics or an equivalent
+predictive model. This may be a deterministic simulator, stochastic simulator, numerical solver,
+inverse model, reduced-order model, or validated surrogate.
+
+For quantum-walk tasks, this includes correctly handling coin operators, conditional shifts, hierarchy
+levels, disorder structure, unitarity, boundary behavior, and observables such as RMS displacement.
+
+PASS if solving the task requires building or modifying a meaningful physics model.
+FAIL if the agent can solve the task by reading off a number, fitting a trivial curve, or applying a
+standard library call without understanding the system.
+"""
+
+[[criteria]]
+name = "asymptotic_reasoning"
+description = "Task tests finite-size, finite-time, or scaling reasoning when appropriate."
+guidance = """
+Many computational-physics problems are difficult because the target quantity is asymptotic while the
+available data is finite. The task should reward agents that can reason about finite-time corrections,
+fit windows, extrapolation, disorder averaging, convergence, and uncertainty.
+
+For a quantum-walk localization task, the agent should not merely compute sigma(t). It should estimate
+inverse walk dimension or localization behavior from finite-time data and justify the estimate.
+
+PASS if the task meaningfully tests extrapolation, convergence, scaling, or uncertainty.
+FAIL if the task only checks a single short-run simulation output when the scientific question is
+asymptotic.
+Mark N/A if the task is not about asymptotic behavior.
+"""
+
+[[criteria]]
+name = "behavioral_verification"
+description = "Verifier checks behavior by executing submitted code or validating generated scientific artifacts."
+guidance = """
+The verifier should execute the submitted simulator, analysis code, or generated outputs. It should check
+physical behavior, not source-code appearance.
+
+Good checks include norm conservation, energy conservation, trajectory agreement, spectral error,
+phase-boundary accuracy, hidden-parameter generalization, or consistency of fitted exponents.
+
+Avoid tests that grep for function names, imports, comments, or specific implementation tricks.
+
+PASS if verification is based on executed behavior and scientific outputs.
+FAIL if verification is mostly source inspection, string matching, or checking that certain words appear
+in the code.
+"""
+
+[[criteria]]
+name = "hidden_generalization"
+description = "Task cannot be solved by overfitting public examples."
+guidance = """
+The task should include hidden cases, hidden seeds, hidden parameters, hidden initial conditions, or
+hidden forcing profiles that test whether the submitted method generalizes.
+
+For simulator-reconstruction tasks, the verifier should run the submitted simulator on cases not present
+in the public data. For phase-transition tasks, hidden checks should include cases on both sides of the
+transition when feasible.
+
+PASS if hidden tests require a general method rather than memorization.
+FAIL if public files contain enough information to directly hard-code all verifier outputs.
+"""
+
+[[criteria]]
+name = "public_data_design"
+description = "Public data is useful for inference but does not leak the answer."
+guidance = """
+Public data should help the agent understand the system, calibrate methods, or infer the scientific
+target. It should not trivially reveal the hidden answer.
+
+For a quantum-walk endpoint task, public long-run density snapshots and sigma checkpoints are appropriate.
+The accepted epsilon_* interval, hidden reference curves, hidden seeds, and verifier-only cases must not
+be present in the agent-visible environment.
+
+PASS if public data supports scientific reasoning without directly encoding the answer.
+FAIL if the answer can be recovered by inspecting filenames, metadata, hidden arrays, Docker layers, or
+obvious constants.
+"""
+
+[[criteria]]
+name = "numerical_reproducibility"
+description = "Results are stable under fixed seeds, controlled randomness, and pinned dependencies."
+guidance = """
+Computational-physics tasks often contain stochastic simulation, floating-point variation, and fitted
+quantities. These must be controlled.
+
+The task should use fixed seeds for hidden tests, deterministic data-generation scripts, stable numerical
+methods, and pinned Python dependencies where practical. Tolerances should be calibrated against legitimate
+numerical variation rather than a single fragile reference run.
+
+PASS if repeated verifier runs give the same pass/fail result.
+FAIL if the same correct solution sometimes passes and sometimes fails because of randomness, unstable
+fitting, or unpinned numerical behavior.
+"""
+
+[[criteria]]
+name = "tolerance_calibration"
+description = "Numerical thresholds are physically and computationally justified."
+guidance = """
+Any tolerance, accepted interval, RMSE threshold, classification cutoff, or fitted-exponent range must
+be justified.
+
+The tolerance should account for floating-point precision, finite-time effects, stochastic disorder
+averaging, alternative discretizations, and reasonable fit-window choices. It should not be so tight that
+only the reference solution passes, nor so loose that physically wrong methods pass.
+
+For localization tasks, endpoint tolerance should be based on offline high-resolution reference runs,
+while verifier simulations should remain lightweight.
+
+PASS if tolerances are documented and scientifically defensible.
+FAIL if thresholds are arbitrary, unexplained, too brittle, or too permissive.
+"""
+
+[[criteria]]
+name = "resource_efficiency"
+description = "Task is intellectually hard without being unnecessarily computationally expensive."
+guidance = """
+The task should challenge scientific reasoning, modeling, and analysis, not merely require huge compute.
+
+For expensive systems, provide precomputed long-run observations and use smaller hidden tests to verify
+the submitted method. Avoid requiring agents or verifiers to run massive parameter sweeps, very long
+trajectories, or large disorder averages unless absolutely necessary.
+
+PASS if the task can run within reasonable CPU, memory, storage, and wall-clock limits.
+FAIL if difficulty comes mainly from brute-force computation, excessive simulation length, or specialized
+hardware without strong justification.
+"""
+
+[[criteria]]
+name = "artifact_contract"
+description = "Required outputs have explicit paths, schemas, and APIs."
+guidance = """
+The instruction must clearly state every required output path and schema.
+
+For structured outputs, define exact JSON keys, CSV columns, array names, function signatures, units,
+coordinate conventions, and expected types. The verifier should check exactly these documented
+requirements.
+
+For example, a quantum-walk task may require:
+- /workspace/output/simulator.py
+- /workspace/output/analysis.py
+- /workspace/output/epsilon_star.json
+- /workspace/output/transport_table.csv
+
+PASS if the output contract is precise and testable.
+FAIL if the verifier expects files, columns, functions, or formats that are not documented in the
+instructions.
+"""
+
+[[criteria]]
+name = "physics_invariants"
+description = "Verifier checks core physical invariants or consistency conditions."
+guidance = """
+Where applicable, tests should check invariants that any physically valid solution must satisfy.
+
+Examples include:
+- quantum norm conservation
+- energy or Hamiltonian conservation
+- probability non-negativity
+- correct light-cone support
+- symmetry constraints
+- finite and real-valued observables
+- monotonicity or scaling constraints when physically required
+
+These checks make the task harder to fake and help distinguish correct physics from curve-fitting.
+
+PASS if the verifier includes relevant physical sanity checks.
+FAIL if the task only checks the final number while ignoring obviously unphysical intermediate behavior.
+"""
+
+[[criteria]]
+name = "scientific_difficulty"
+description = "Difficulty comes from real scientific reasoning, not obscure facts or clerical details."
+guidance = """
+The task should be difficult because it requires domain knowledge, numerical judgment, modeling skill, or
+interpretation of physical data.
+
+Good difficulty includes finite-size scaling near a localization transition, stable integration of a stiff
+system, reconstructing a force law from trajectories, estimating transport exponents, or distinguishing
+diffusion from subdiffusion.
+
+Bad difficulty includes fragile formatting, hidden naming conventions, arbitrary precision requirements,
+obscure undocumented constants, or excessive boilerplate.
+
+PASS if an experienced computational scientist would find the task substantively challenging.
+FAIL if most failures would come from formatting, missing hints, typos, or arbitrary implementation details.
+"""
+
+[[criteria]]
+name = "agentic_workflow"
+description = "Task requires iterative terminal work rather than one-shot answer generation."
+guidance = """
+The benchmark should test agents as terminal workers. A good task should require inspecting data, writing
+code, running experiments, debugging numerical issues, validating outputs, and refining the method.
+
+The solution should not be obtainable by a single LLM response or a single shell command.
+
+PASS if the task naturally requires multi-step environment interaction.
+FAIL if the task is essentially a static Q&A problem or a simple one-file coding exercise.
+"""
+
+[[criteria]]
+name = "solution_derivation"
+description = "Oracle solution derives outputs through computation rather than hardcoding final answers."
+guidance = """
+The reference solution should demonstrate a real computational method. It may use a more efficient or more
+informed method than the agent, but it should not simply write the expected final value.
+
+For phase-transition tasks, the solution should run a simulator, analyze provided observations, or derive
+the endpoint from documented precomputed reference data. If an accepted interval is used, the derivation
+and data provenance should be documented for reviewers.
+
+PASS if the solution computes the answer from the model or data.
+FAIL if the solution directly echoes a constant without showing how the result follows.
+"""
+
+[[criteria]]
+name = "data_provenance"
+description = "Synthetic or empirical data is traceable, documented, and reproducible."
+guidance = """
+The task should explain where the data came from. If synthetic, include the generator, seeds, model
+equations, and parameter ranges. If empirical or externally sourced, document origin, preprocessing,
+licensing, and transformations.
+
+For precomputed long-run physics data, the expensive generation script may live outside the agent-visible
+environment, but reviewers should be able to reproduce or audit it.
+
+PASS if data provenance is clear enough for maintainers to regenerate or validate the task.
+FAIL if data appears from nowhere, uses undocumented preprocessing, or cannot be audited.
+"""
+
+[[criteria]]
+name = "anti_shortcut_design"
+description = "Task resists common shortcuts, answer leakage, and verifier tampering."
+guidance = """
+Agents should not be able to pass by reading hidden files, modifying tests, monkey-patching libraries,
+scraping Docker layers, or hardcoding public examples.
+
+Hidden reference data should not be copied into the runtime image. Tests and solutions should not be
+present in the agent-visible environment. The verifier should import submitted files in a controlled way
+and check outputs after the agent finishes.
+
+PASS if obvious cheating paths are blocked.
+FAIL if hidden answers are accessible, tests can be trivially bypassed, or public data contains the full
+answer.
+"""
+
+[[criteria]]
+name = "environment_hygiene"
+description = "Container contains only what the agent needs, with clean dependencies and no hidden test material."
+guidance = """
+The Docker image should include the runtime tools and public data needed to solve the task. It should not
+include tests, hidden answers, oracle solution files, or unnecessary test-only dependencies.
+
+Dependencies should be minimal and pinned where useful for reproducibility. The container should avoid
+unnecessary network access, large unused packages, background processes, or fragile system modifications.
+
+PASS if the environment is clean, minimal, and reproducible.
+FAIL if the Docker image leaks hidden materials, installs unrelated packages, or relies on mutable external
+resources.
+"""
+
+[[criteria]]
+name = "reviewability"
+description = "A technically literate reviewer can understand what is being tested."
+guidance = """
+Specialized physics is allowed, but the task must include enough explanation for reviewers to audit the
+instruction, verifier, solution, and expected behavior.
+
+A good task includes concise reviewer-facing notes explaining the model, generated data, physical
+observable, scoring method, and tolerance calibration. The instruction given to the agent may be shorter,
+but maintainers need enough context.
+
+PASS if a non-specialist technical reviewer can follow the task design with the provided notes.
+FAIL if correctness depends on undocumented domain assumptions that only the author understands.
+"""
+
+[[criteria]]
+name = "benchmark_security"
+description = "Task files contain no malicious behavior or unnecessary external access."
+guidance = """
+Task code must not exfiltrate credentials, access host files, contact external services without need,
+modify system state outside the task, hide obfuscated payloads, or attempt container escape.
+
+Scientific tasks should be self-contained unless network access is an explicit and justified part of the
+task.
+
+PASS if all files are safe and directly related to setup, solution, or verification.
+FAIL if any file contains credential access, network exfiltration, destructive commands, obfuscation, or
+behavior unrelated to the task.
+"""
+
+[[criteria]]
+name = "metadata_quality"
+description = "Task metadata accurately explains difficulty, solution approach, verification, and resources."
+guidance = """
+Metadata should help reviewers understand the task without reading every line of code.
+
+It should include:
+- difficulty explanation
+- solution explanation
+- verification explanation
+- expert time estimate
+- relevant tags
+- resource justification
+
+For computational-physics tasks, the difficulty explanation should say what physical reasoning is required,
+what numerical challenges exist, and who would perform this task in real research.
+
+PASS if metadata is specific, accurate, and consistent with the task files.
+FAIL if metadata is missing, generic, misleading, or copied from a template.
+"""
+
+[[criteria]]
+name = "task_naming"
+description = "Task folder name is concise, descriptive, and stable."
+guidance = """
+Task names should be short, descriptive, and usable in command-line output and logs. Prefer at most three
+hyphen-separated terms.
+
+Good names:
+- ultrawalk-endpoint
+- nbody-inference
+- ising-criticality
+
+Bad names:
+- task1
+- hard-physics-problem
+- quantum-walk-localization-transition-critical-endpoint-from-shadows
+
+PASS if the name is concise, specific, and follows kebab-case.
+FAIL if the name is vague, misleading, too long, or inconsistent with the task content.
+"""
+
+[[criteria]]
+name = "resource_configuration"
+description = "Timeouts and hardware limits match the intended workload."
+guidance = """
+The task's timeouts and resource limits should reflect what the agent and verifier actually need.
+
+Verifier timeout should be long enough for deterministic checks but not long enough to hide inefficient
+or brute-force designs. Agent timeout should reflect scientific difficulty. CPU, memory, storage, and GPU
+requirements should be justified by the task, not used to make the problem hard by force.
+
+PASS if resources are appropriate and the task remains primarily intellectually difficult.
+FAIL if resources are excessive, missing, or inconsistent with the expected workload.
+"""
+
+[[criteria]]
+name = "structured_output_schema"
+description = "JSON, CSV, NumPy, and API outputs have exact schemas."
+guidance = """
+If the task expects structured outputs, the schema must be explicitly documented. Examples are not enough.
+
+For JSON, list required keys and value types. For CSV, list required columns and allowed values. For NumPy
+archives, list array names, shapes when known, and meanings. For Python APIs, list function names,
+arguments, return fields, and expected units.
+
+PASS if every structured output has a documented schema.
+FAIL if the verifier expects structured data that is not clearly specified.
+"""
+
+[[criteria]]
+name = "failure_diagnostics"
+description = "Verifier failures are actionable for task authors and reviewers."
+guidance = """
+Tests should fail with messages that identify what went wrong: missing file, bad schema, norm drift,
+incorrect hidden-case sigma, endpoint out of range, or invalid numerical value.
+
+Opaque failures make tasks hard to debug and maintain.
+
+PASS if test failures are specific and useful.
+FAIL if failures are mostly generic assertion errors or silent reward-zero outcomes without logs.
+"""
+
+[[criteria]]
+name = "no_process_lockin"
+description = "Task grades end results, not the exact method used."
+guidance = """
+The instruction should define the scientific target and output contract, not force a particular editor,
+library, implementation style, or analysis method unless that choice is intrinsic to the science.
+
+A task may require a simulator API or file format, but it should allow different valid numerical approaches.
+
+PASS if multiple correct approaches could pass.
+FAIL if the tests require a specific internal implementation, source-code pattern, or tool choice without
+scientific necessity.
+"""
+
+[[criteria]]
+name = "bench_fit"
+description = "Task fits the benchmark's identity as computational physics, not general science or generic coding."
+guidance = """
+The task should belong in a computational-physics benchmark specifically. It should involve numerical
+physical modeling, simulation, inverse dynamics, statistical mechanics, quantum dynamics, PDEs, phase
+transitions, many-body systems, or related scientific computation.
+
+PASS if the task strengthens the benchmark's identity.
+FAIL if the task would fit better as generic data science, software engineering, chemistry-only modeling,
+or unconstrained research writing.
+"""
+'''
+
+path = Path("/mnt/data/computational_physics_bench_rubric.toml")
+path.write_text(rubric, encoding="utf-8")
+
+# Quick TOML parse validation using tomllib.
+import tomllib
+tomllib.loads(rubric)
+
+print(f"Created and validated: {path}")
+
