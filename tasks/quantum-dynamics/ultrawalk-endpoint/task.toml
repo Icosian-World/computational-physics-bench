@@ -1,0 +1,33 @@
+schema_version = "1.0"
+
+[metadata]
+author_name = "Richa Sharma"
+author_email = "richa.flutr@gmail.com"
+category = "computational-physics"
+tags = [
+  "quantum-dynamics",
+  "quantum-walks",
+  "localization",
+  "finite-size-scaling",
+  "disordered-systems",
+  "python",
+  "numpy"
+]
+expert_time_estimate_hours = 8
+difficulty_explanation = "This task requires implementing a site-dependent unitary quantum walk with sparse hierarchy-level disorder, extracting asymptotic transport behavior from finite-time data, and estimating a localization endpoint under stochastic finite-size effects."
+solution_explanation = "The reference solution implements the hierarchical quantum-walk simulator, computes RMS displacement over sampled times, estimates inverse walk dimension by late-time finite-time scaling, combines these estimates with the provided long-run observations, and writes the critical endpoint and transport table."
+verification_explanation = "The verifier checks that the submitted simulator and analysis modules import successfully, preserve quantum norm on hidden small cases, agree with reference RMS-displacement curves on fixed-seed hidden medium cases, produce finite inverse walk-dimension estimates, and report an epsilon endpoint inside an interval calibrated from offline higher-resolution reference simulations."
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 7200.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 4
+memory_mb = 8192
+storage_mb = 10240
+gpus = 0
+allow_internet = true
