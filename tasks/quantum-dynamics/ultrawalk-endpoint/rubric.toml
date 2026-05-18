@@ -1,0 +1,115 @@
+schema_version = "1.0"
+rubric_id = "ultrawalk-endpoint"
+task_id = "tasks/quantum-dynamics/ultrawalk-endpoint"
+total_points = 1.0
+reward_file = "/logs/verifier/reward.json"
+details_file = "/logs/verifier/rubric_details.json"
+
+[philosophy]
+summary = "Grade end-to-end scientific reconstruction, not formatting tricks."
+notes = [
+  "The task is intentionally difficult, but serious partial attempts should receive nonzero credit.",
+  "Visualization is included for human physicist auditability, but has low reward weight to avoid image-only reward hacking.",
+  "Hidden simulator checks use executed behavior and physics invariants rather than source-code inspection.",
+  "The final Harbor reward JSON remains numeric-only for framework compatibility; detailed diagnostics are emitted separately."
+]
+
+[[criteria]]
+id = "required_output_files"
+name = "Required output files"
+weight = 0.10
+grader = "tests/test_outputs.py::score_files"
+description = "Checks that required artifacts exist in /workspace/output."
+required_artifacts = [
+  "simulator.py",
+  "analysis.py",
+  "visualization.py",
+  "epsilon_star.json",
+  "transport_table.csv",
+  "notes.md"
+]
+
+[[criteria]]
+id = "simulator_import_and_physics"
+name = "Simulator import and hidden-seed physics"
+weight = 0.35
+grader = "tests/test_outputs.py::score_simulator"
+description = "Imports simulator.py, executes simulate(), checks required return keys, norm conservation, RMS displacement agreement, and final-density agreement against hidden reference seeds."
+subpoints = [
+  "0.04 imports",
+  "0.04 returns times, sigma, rho_final, x_grid, norm_error",
+  "0.04 norm_error below 1e-8",
+  "0.12 RMS-displacement agreement against reference",
+  "0.11 final probability-density agreement against reference"
+]
+
+[[criteria]]
+id = "analysis_scaling_functions"
+name = "Finite-time scaling analysis"
+weight = 0.20
+grader = "tests/test_outputs.py::score_analysis"
+description = "Imports analysis.py and checks estimate_inv_dw() on synthetic power laws plus estimate_epsilon_star() on the public observations."
+subpoints = [
+  "0.04 imports",
+  "0.08 recovers inv_dw near 0.50",
+  "0.04 recovers inv_dw near 0.35",
+  "0.02 estimate_epsilon_star returns epsilon_star",
+  "0.02 estimate_epsilon_star returns table-like support"
+]
+
+[[criteria]]
+id = "epsilon_star_endpoint"
+name = "Critical endpoint estimate"
+weight = 0.10
+grader = "tests/test_outputs.py::score_epsilon_star"
+description = "Parses epsilon_star.json and scores endpoint accuracy against the hidden accepted interval with graded distance credit."
+subpoints = [
+  "0.02 valid JSON with epsilon_star",
+  "0.06 endpoint inside or near the hidden interval",
+  "0.02 uncertainty and method fields present"
+]
+
+[[criteria]]
+id = "transport_table"
+name = "Public-case transport table"
+weight = 0.20
+grader = "tests/test_outputs.py::score_transport_table"
+description = "Parses transport_table.csv, checks schema, numeric rows, both localized and transporting regimes, public case ID matching, and inverse-walk-dimension consistency."
+required_columns = [
+  "case_id",
+  "epsilon",
+  "W",
+  "t_final",
+  "inv_dw",
+  "stderr",
+  "localized",
+  "notes"
+]
+subpoints = [
+  "0.04 exact header",
+  "0.02 at least one row",
+  "0.03 numeric row fields",
+  "0.02 both localized and transporting regimes represented",
+  "0.03 public case IDs matched",
+  "0.04 inv_dw consistency with public observations",
+  "0.02 epsilon/W/t_final metadata consistency"
+]
+
+[[criteria]]
+id = "visual_diagnostics"
+name = "Human-audit visualization"
+weight = 0.05
+grader = "tests/test_outputs.py::score_visualization"
+description = "Imports visualization.py or runs it as a script, then requires a nonempty PNG/JPG/GIF diagnostic artifact."
+subpoints = [
+  "0.015 imports",
+  "0.015 create_diagnostic_plots(output_dir) runs, or script runs for partial credit",
+  "0.020 at least one nonempty image artifact"
+]
+
+[[criteria]]
+id = "notes_audit"
+name = "Notes audit"
+weight = 0.0
+grader = "tests/test_outputs.py::score_notes"
+description = "Informational only. Checks whether notes.md mentions expected scientific topics, but it does not affect reward."

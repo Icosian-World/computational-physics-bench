@@ -1,0 +1,45 @@
+schema_version = "1.0"
+rubric_id = "ultrawalk-endpoint"
+task_id = "tasks/quantum-dynamics/ultrawalk-endpoint"
+source_rubric = "tasks/quantum-dynamics/ultrawalk-endpoint/rubric.toml"
+total_points = 1.0
+
+[summary]
+physics_target = "Estimate the maximal-disorder localization endpoint of a hierarchical discrete-time quantum walk."
+grading_style = "Graded Harbor reward with detailed rubric diagnostics."
+anti_hacking_posture = "Reward is dominated by executed simulator behavior, finite-time scaling, and table consistency; visual plots are low-weight human audit artifacts."
+
+[[criteria]]
+id = "required_output_files"
+weight = 0.10
+description = "Required artifacts are present in /workspace/output."
+
+[[criteria]]
+id = "simulator_import_and_physics"
+weight = 0.35
+description = "Submitted simulator imports, preserves norm, and matches hidden reference dynamics for sigma(t) and final density."
+
+[[criteria]]
+id = "analysis_scaling_functions"
+weight = 0.20
+description = "Submitted analysis recovers known finite-time scaling exponents and exposes endpoint estimation."
+
+[[criteria]]
+id = "epsilon_star_endpoint"
+weight = 0.10
+description = "epsilon_star.json is valid and estimates the hidden endpoint interval."
+
+[[criteria]]
+id = "transport_table"
+weight = 0.20
+description = "transport_table.csv has the exact schema, public case consistency, and both localized and transporting regimes."
+
+[[criteria]]
+id = "visual_diagnostics"
+weight = 0.05
+description = "visualization.py produces a nonempty human-audit image without dominating the reward."
+
+[[criteria]]
+id = "notes_audit"
+weight = 0.0
+description = "notes.md is inspected for reviewer context but is not part of the numeric score."

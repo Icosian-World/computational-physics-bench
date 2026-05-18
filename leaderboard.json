@@ -1,0 +1,333 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-05-18T01:34:16.339056+00:00",
+  "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+  "pricing": {
+    "unit": "USD per 1M tokens",
+    "last_reviewed": "2026-05-18",
+    "sources": {
+      "gpt-5.4": "https://developers.openai.com/api/docs/pricing",
+      "gpt-5.3-codex": "https://developers.openai.com/api/docs/pricing",
+      "digitalocean-hosted": "https://docs.digitalocean.com/products/ai-platform/details/pricing/"
+    },
+    "notes": [
+      "Reasoning tokens are included in output_tokens for Responses API billing.",
+      "Azure enterprise deployments may have custom prices; override this file or pass explicit CLI rates when needed."
+    ]
+  },
+  "results": [
+    {
+      "id": "oracle-2026-05-17-180350",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "Reference Oracle",
+      "model": null,
+      "agent": "oracle",
+      "status": "PASS",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__18-03-50/result.json",
+      "score": {
+        "reward": 1.0,
+        "points": 100.0,
+        "points_per_1k_tokens": null,
+        "points_per_usd": null
+      },
+      "tokens": {
+        "input": null,
+        "cached_input": null,
+        "output": null,
+        "reasoning": null,
+        "total": null,
+        "source": "unavailable",
+        "approximate": true,
+        "turns": 0
+      },
+      "cost": {
+        "estimated_usd": null,
+        "source": "unavailable",
+        "approximate": true,
+        "rates_usd_per_1m": null
+      },
+      "duration_s": 40,
+      "diagnostics": "Reference solution passes the graded Docker verifier, including visual diagnostics.",
+      "rank": 1
+    },
+    {
+      "id": "qwen3.5-397b-a17b-harbor-2026-05-17",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "Qwen3.5-397B-A17B via Harbor Aider",
+      "model": "openai/openai/qwen3.5-397b-a17b",
+      "agent": "aider",
+      "status": "PARTIAL",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__18-24-23/result.json",
+      "score": {
+        "reward": 0.76,
+        "points": 76.0,
+        "points_per_1k_tokens": 0.7684529828109201,
+        "points_per_usd": 598.5901626432482
+      },
+      "tokens": {
+        "input": 74300,
+        "cached_input": 0,
+        "output": 24600,
+        "reasoning": null,
+        "total": 98900,
+        "source": "aider_log",
+        "approximate": true,
+        "turns": 4
+      },
+      "cost": {
+        "estimated_usd": 0.126965,
+        "source": "pricing_table",
+        "approximate": true,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 0.55,
+          "cached_input_usd_per_million": null,
+          "output_usd_per_million": 3.5,
+          "provider": "DigitalOcean-hosted Alibaba"
+        }
+      },
+      "duration_s": 482,
+      "diagnostics": "Strong non-oracle result: all artifacts present, simulator physics matched hidden reference, analysis functions passed, and visualization succeeded. It lost points because epsilon_star stayed at 0 and transport_table.csv contained only the header.",
+      "rank": 2
+    },
+    {
+      "id": "gpt-5.4-azure-2026-05-17",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "gpt-5.4 via Azure Responses",
+      "model": "gpt-5.4",
+      "agent": "direct-responses",
+      "status": "PARTIAL",
+      "run_type": "responses",
+      "run_path": "/tmp/ultrawalk_gpt54_eval",
+      "score": {
+        "reward": 0.69636,
+        "points": 69.636,
+        "points_per_1k_tokens": 4.272409350266887,
+        "points_per_usd": 313.5026843295929
+      },
+      "tokens": {
+        "input": 1789,
+        "cached_input": 0,
+        "output": 14510,
+        "reasoning": 7689,
+        "total": 16299,
+        "source": "responses_usage",
+        "approximate": false,
+        "turns": null
+      },
+      "cost": {
+        "estimated_usd": 0.2221225,
+        "source": "pricing_table",
+        "approximate": false,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 2.5,
+          "cached_input_usd_per_million": 0.25,
+          "output_usd_per_million": 15.0
+        }
+      },
+      "duration_s": 173,
+      "diagnostics": "Produced all required files and a diagnostic plot. Analysis functions passed, but simulator physics did not match the reference walk and the endpoint was low.",
+      "rank": 3
+    },
+    {
+      "id": "gpt-5.3-codex-azure-2026-05-17",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "gpt-5.3-codex via Azure Responses",
+      "model": "gpt-5.3-codex",
+      "agent": "direct-responses",
+      "status": "PARTIAL",
+      "run_type": "responses",
+      "run_path": "/tmp/ultrawalk_gpt53_codex_eval",
+      "score": {
+        "reward": 0.59,
+        "points": 59.0,
+        "points_per_1k_tokens": 7.585497557212651,
+        "points_per_usd": 660.5722346934778
+      },
+      "tokens": {
+        "input": 1598,
+        "cached_input": 0,
+        "output": 6180,
+        "reasoning": 2460,
+        "total": 7778,
+        "source": "responses_usage",
+        "approximate": false,
+        "turns": null
+      },
+      "cost": {
+        "estimated_usd": 0.0893165,
+        "source": "pricing_table",
+        "approximate": false,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 1.75,
+          "cached_input_usd_per_million": 0.175,
+          "output_usd_per_million": 14.0
+        }
+      },
+      "duration_s": 59,
+      "diagnostics": "Produced all six required outputs and method notes, but simulator physics and transport-table consistency were weak.",
+      "rank": 4
+    },
+    {
+      "id": "deepseek-v4-pro-harbor-2026-05-17",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "deepseek-v4-pro via Harbor Aider",
+      "model": "openai/openai/deepseek-v4-pro",
+      "agent": "aider",
+      "status": "PARTIAL",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__16-28-57/result.json",
+      "score": {
+        "reward": 0.235499,
+        "points": 23.5499,
+        "points_per_1k_tokens": 0.38336154973140163,
+        "points_per_usd": 183.49275064203258
+      },
+      "tokens": {
+        "input": 49100,
+        "cached_input": 0,
+        "output": 12330,
+        "reasoning": null,
+        "total": 61430,
+        "source": "aider_log",
+        "approximate": true,
+        "turns": 4
+      },
+      "cost": {
+        "estimated_usd": 0.1283424,
+        "source": "pricing_table",
+        "approximate": true,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 1.74,
+          "cached_input_usd_per_million": null,
+          "output_usd_per_million": 3.48,
+          "provider": "DigitalOcean-hosted DeepSeek"
+        }
+      },
+      "duration_s": 879,
+      "diagnostics": "Wrote several Python modules to /workspace instead of /workspace/output, so simulator, analysis, and visualization were missing to the verifier. Endpoint was outside the accepted interval.",
+      "rank": 5
+    },
+    {
+      "id": "qwen3-32b-harbor-2026-05-17",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "Qwen3-32B via Harbor Aider",
+      "model": "openai/openai/alibaba-qwen3-32b",
+      "agent": "aider",
+      "status": "INCOMPLETE",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__15-11-27/result.json",
+      "score": {
+        "reward": null,
+        "points": null,
+        "points_per_1k_tokens": null,
+        "points_per_usd": null
+      },
+      "tokens": {
+        "input": 24100,
+        "cached_input": 0,
+        "output": 16423,
+        "reasoning": null,
+        "total": 40523,
+        "source": "aider_log",
+        "approximate": true,
+        "turns": 4
+      },
+      "cost": {
+        "estimated_usd": 0.015057650000000002,
+        "source": "pricing_table",
+        "approximate": true,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 0.25,
+          "cached_input_usd_per_million": null,
+          "output_usd_per_million": 0.55,
+          "provider": "DigitalOcean-hosted Alibaba"
+        }
+      },
+      "duration_s": null,
+      "diagnostics": "Legacy run did not reach verifier completion; Aider log shows meaningful attempts but Harbor job metadata remained running/null after cancellation.",
+      "rank": null
+    },
+    {
+      "id": "kimi-k2.6-harbor-2026-05-17",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "Kimi K2.6 via Harbor Aider",
+      "model": "openai/openai/kimi-k2.6",
+      "agent": "aider",
+      "status": "CANCELLED",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__14-54-12/result.json",
+      "score": {
+        "reward": null,
+        "points": null,
+        "points_per_1k_tokens": null,
+        "points_per_usd": null
+      },
+      "tokens": {
+        "input": 11400,
+        "cached_input": 0,
+        "output": 61000,
+        "reasoning": null,
+        "total": 72400,
+        "source": "aider_log",
+        "approximate": true,
+        "turns": 2
+      },
+      "cost": {
+        "estimated_usd": 0.25483,
+        "source": "pricing_table",
+        "approximate": true,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 0.95,
+          "cached_input_usd_per_million": null,
+          "output_usd_per_million": 4.0,
+          "provider": "DigitalOcean-hosted Moonshot AI"
+        }
+      },
+      "duration_s": null,
+      "diagnostics": "Legacy Harbor run was cancelled before verifier scoring. Aider log shows large output generation, but no graded reward was produced.",
+      "rank": null
+    },
+    {
+      "id": "qwen3-coder-flash-catalog",
+      "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+      "display_name": "Qwen3 Coder Flash via DigitalOcean",
+      "model": "alibaba-qwen3-coder-flash",
+      "agent": "pending",
+      "status": "NOT_RUN",
+      "run_type": "catalog",
+      "run_path": null,
+      "score": {
+        "reward": null,
+        "points": null,
+        "points_per_1k_tokens": null,
+        "points_per_usd": null
+      },
+      "tokens": {
+        "input": null,
+        "cached_input": null,
+        "output": null,
+        "reasoning": null,
+        "total": null,
+        "source": "not_run",
+        "approximate": false,
+        "turns": null
+      },
+      "cost": {
+        "estimated_usd": null,
+        "source": "unavailable",
+        "approximate": false,
+        "rates_usd_per_1m": {
+          "input_usd_per_million": 0.45,
+          "cached_input_usd_per_million": null,
+          "output_usd_per_million": 1.7,
+          "provider": "DigitalOcean-hosted Alibaba"
+        }
+      },
+      "duration_s": null,
+      "diagnostics": "Pricing is configured for future qwen-code runs; no completed Harbor or direct Responses evaluation is recorded yet.",
+      "rank": null
+    }
+  ]
+}

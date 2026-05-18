@@ -16,7 +16,8 @@ tags = [
 expert_time_estimate_hours = 8
 difficulty_explanation = "This task requires implementing a site-dependent unitary quantum walk with sparse hierarchy-level disorder, extracting asymptotic transport behavior from finite-time data, and estimating a localization endpoint under stochastic finite-size effects."
 solution_explanation = "The reference solution implements the hierarchical quantum-walk simulator, computes RMS displacement over sampled times, estimates inverse walk dimension by late-time finite-time scaling, combines these estimates with the provided long-run observations, and writes the critical endpoint and transport table."
-verification_explanation = "The verifier checks that the submitted simulator and analysis modules import successfully, preserve quantum norm on hidden small cases, agree with reference RMS-displacement curves on fixed-seed hidden medium cases, produce finite inverse walk-dimension estimates, and report an epsilon endpoint inside an interval calibrated from offline higher-resolution reference simulations."
+verification_explanation = "The verifier uses a graded rubric rather than a binary trapdoor: it scores required artifacts, simulator import and hidden-seed physics agreement, finite-time scaling behavior, epsilon endpoint accuracy, transport-table consistency with the bundled public observations, and a low-weight human-audit visualization artifact. The reward file is written in Harbor-compatible numeric JSON while detailed rubric diagnostics are emitted separately."
+rubric_path = "tasks/quantum-dynamics/ultrawalk-endpoint/rubric.toml"
 
 [verifier]
 timeout_sec = 600.0
@@ -26,8 +27,8 @@ timeout_sec = 7200.0
 
 [environment]
 build_timeout_sec = 600.0
-cpus = 4
-memory_mb = 8192
+cpus = 2
+memory_mb = 3072
 storage_mb = 10240
 gpus = 0
 allow_internet = true

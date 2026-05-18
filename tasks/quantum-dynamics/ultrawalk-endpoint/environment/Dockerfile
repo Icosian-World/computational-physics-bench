@@ -12,13 +12,14 @@ WORKDIR /workspace
 RUN pip install --no-cache-dir \
     numpy \
     scipy \
-    pandas
+    pandas \
+    matplotlib
 
 # Create directories for data and output
 RUN mkdir -p /workspace/data /workspace/output
 
-# Copy task files (if any are baked into the image)
-# Usually Harbor mounts these, but we can ensure they exist
-# COPY data/ /workspace/data/
+# Bake the public observations into the task image. Agents and the verifier
+# both expect these files at /workspace/data inside the Harbor container.
+COPY data/ /workspace/data/
 
 CMD ["/bin/bash"]

@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "task_id": "tasks/quantum-dynamics/ultrawalk-endpoint",
+  "results": [
+    {
+      "id": "oracle-2026-05-17-180350",
+      "display_name": "Reference Oracle",
+      "model": null,
+      "agent": "oracle",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__18-03-50/result.json",
+      "status": "PASS",
+      "diagnostics": "Reference solution passes the graded Docker verifier, including visual diagnostics."
+    },
+    {
+      "id": "gpt-5.4-azure-2026-05-17",
+      "display_name": "gpt-5.4 via Azure Responses",
+      "model": "gpt-5.4",
+      "agent": "direct-responses",
+      "run_type": "responses",
+      "run_path": "/tmp/ultrawalk_gpt54_eval",
+      "status": "PARTIAL",
+      "diagnostics": "Produced all required files and a diagnostic plot. Analysis functions passed, but simulator physics did not match the reference walk and the endpoint was low."
+    },
+    {
+      "id": "gpt-5.3-codex-azure-2026-05-17",
+      "display_name": "gpt-5.3-codex via Azure Responses",
+      "model": "gpt-5.3-codex",
+      "agent": "direct-responses",
+      "run_type": "responses",
+      "run_path": "/tmp/ultrawalk_gpt53_codex_eval",
+      "status": "PARTIAL",
+      "diagnostics": "Produced all six required outputs and method notes, but simulator physics and transport-table consistency were weak."
+    },
+    {
+      "id": "deepseek-v4-pro-harbor-2026-05-17",
+      "display_name": "deepseek-v4-pro via Harbor Aider",
+      "model": "openai/openai/deepseek-v4-pro",
+      "agent": "aider",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__16-28-57/result.json",
+      "agent_log_path": "jobs/2026-05-17__16-28-57/ultrawalk-endpoint__UC3oZR3/agent/aider.txt",
+      "status": "PARTIAL",
+      "diagnostics": "Wrote several Python modules to /workspace instead of /workspace/output, so simulator, analysis, and visualization were missing to the verifier. Endpoint was outside the accepted interval."
+    },
+    {
+      "id": "qwen3-32b-harbor-2026-05-17",
+      "display_name": "Qwen3-32B via Harbor Aider",
+      "model": "openai/openai/alibaba-qwen3-32b",
+      "agent": "aider",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__15-11-27/result.json",
+      "agent_log_path": "jobs/2026-05-17__15-11-27/ultrawalk-endpoint__6PhyvJZ/agent/aider.txt",
+      "status": "INCOMPLETE",
+      "diagnostics": "Legacy run did not reach verifier completion; Aider log shows meaningful attempts but Harbor job metadata remained running/null after cancellation."
+    },
+    {
+      "id": "kimi-k2.6-harbor-2026-05-17",
+      "display_name": "Kimi K2.6 via Harbor Aider",
+      "model": "openai/openai/kimi-k2.6",
+      "agent": "aider",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__14-54-12/result.json",
+      "agent_log_path": "jobs/2026-05-17__14-54-12/ultrawalk-endpoint__RUsRndE/agent/aider.txt",
+      "status": "CANCELLED",
+      "diagnostics": "Legacy Harbor run was cancelled before verifier scoring. Aider log shows large output generation, but no graded reward was produced."
+    },
+    {
+      "id": "qwen3.5-397b-a17b-harbor-2026-05-17",
+      "display_name": "Qwen3.5-397B-A17B via Harbor Aider",
+      "model": "openai/openai/qwen3.5-397b-a17b",
+      "agent": "aider",
+      "run_type": "harbor",
+      "run_path": "jobs/2026-05-17__18-24-23/result.json",
+      "agent_log_path": "jobs/2026-05-17__18-24-23/ultrawalk-endpoint__5wFJH4w/agent/aider.txt",
+      "status": "PARTIAL",
+      "diagnostics": "Strong non-oracle result: all artifacts present, simulator physics matched hidden reference, analysis functions passed, and visualization succeeded. It lost points because epsilon_star stayed at 0 and transport_table.csv contained only the header."
+    },
+    {
+      "id": "qwen3-coder-flash-catalog",
+      "display_name": "Qwen3 Coder Flash via DigitalOcean",
+      "model": "alibaba-qwen3-coder-flash",
+      "agent": "pending",
+      "run_type": "catalog",
+      "run_path": null,
+      "status": "NOT_RUN",
+      "diagnostics": "Pricing is configured for future qwen-code runs; no completed Harbor or direct Responses evaluation is recorded yet."
+    }
+  ]
+}

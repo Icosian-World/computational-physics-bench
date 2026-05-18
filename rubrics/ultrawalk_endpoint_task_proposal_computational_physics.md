@@ -174,6 +174,7 @@ The agent must create the following files:
 ```text
 /workspace/output/simulator.py
 /workspace/output/analysis.py
+/workspace/output/visualization.py
 /workspace/output/epsilon_star.json
 /workspace/output/transport_table.csv
 /workspace/output/notes.md
@@ -260,6 +261,17 @@ case_id,epsilon,W,t_final,inv_dw,stderr,localized,notes
 
 `localized` must be a boolean-like value such as `true` or `false`.
 
+### `visualization.py`
+
+Must expose:
+
+```python
+def create_diagnostic_plots(output_dir: str = "/workspace/output") -> list[str]:
+    ...
+```
+
+The function should create at least one PNG/JPG/GIF diagnostic image showing the model's submitted transport estimates, endpoint choice, or representative density profiles. This is intended for human physicist review. It is deliberately low-weight in the automated reward so that agents cannot pass the task by producing visually plausible but numerically wrong plots.
+
 ### `notes.md`
 
 A short human-readable explanation of the approach, including:
@@ -316,22 +328,25 @@ The verifier should grade outcomes, not implementation style. It should execute 
 
    The table must contain cases on both sides of the proposed transition, finite inverse walk-dimension estimates, finite uncertainty values, and localization labels consistent with the reported endpoint.
 
+9. **Human-audit visualization**
+
+   The verifier imports `visualization.py` or runs it as a script and checks that at least one nonempty image artifact is produced. Plot style is not heavily rewarded; this check exists to make failures more interpretable to maintainers.
+
 ## Suggested Scoring
 
-A 100-point internal score can be used even if the final Harbor task is pass/fail.
+A graded reward is used so incomplete but serious scientific attempts receive partial credit. The Harbor reward is written as a numeric JSON value while detailed diagnostics are written separately.
 
 | Component | Weight |
 |---|---:|
-| Required artifacts and schemas | 10 |
-| Simulator import and API behavior | 10 |
-| Quantum norm and physical sanity checks | 15 |
-| Correct hierarchy and phase-disorder behavior | 15 |
-| Hidden RMS-displacement agreement | 20 |
-| Inverse walk-dimension estimation | 15 |
+| Required output files | 10 |
+| Simulator import and hidden-seed physics | 35 |
+| Finite-time scaling analysis functions | 20 |
 | Endpoint estimate | 10 |
-| Scientific table and notes | 5 |
+| Transport table consistency | 20 |
+| Human-audit visualization | 5 |
+| Notes audit | Informational only |
 
-Suggested pass threshold: 75/100.
+An oracle solution should receive reward `1.0`. Lower scores are meaningful and should be reported on the leaderboard rather than treated as infrastructure failures.
 
 ### Hard Fail Conditions
 

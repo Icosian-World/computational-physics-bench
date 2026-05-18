@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "unit": "USD per 1M tokens",
+    "default_basis": "standard API token pricing",
+    "last_reviewed": "2026-05-18",
+    "sources": {
+      "gpt-5.4": "https://developers.openai.com/api/docs/pricing",
+      "gpt-5.3-codex": "https://developers.openai.com/api/docs/pricing",
+      "digitalocean-hosted": "https://docs.digitalocean.com/products/ai-platform/details/pricing/"
+    },
+    "notes": [
+      "Reasoning tokens are included in output_tokens for Responses API billing.",
+      "Azure enterprise deployments may have custom prices; override this file or pass explicit CLI rates when needed."
+    ]
+  },
+  "models": {
+    "gpt-5.4": {
+      "input_usd_per_million": 2.5,
+      "cached_input_usd_per_million": 0.25,
+      "output_usd_per_million": 15.0
+    },
+    "gpt-5.4-pro": {
+      "input_usd_per_million": 30.0,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 180.0
+    },
+    "gpt-5.4-mini": {
+      "input_usd_per_million": 0.75,
+      "cached_input_usd_per_million": 0.075,
+      "output_usd_per_million": 4.5
+    },
+    "gpt-5.3-codex": {
+      "input_usd_per_million": 1.75,
+      "cached_input_usd_per_million": 0.175,
+      "output_usd_per_million": 14.0
+    },
+    "deepseek-v4-pro": {
+      "input_usd_per_million": 1.74,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 3.48,
+      "provider": "DigitalOcean-hosted DeepSeek"
+    },
+    "openai/deepseek-v4-pro": {
+      "input_usd_per_million": 1.74,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 3.48,
+      "provider": "DigitalOcean-hosted DeepSeek"
+    },
+    "openai/openai/deepseek-v4-pro": {
+      "input_usd_per_million": 1.74,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 3.48,
+      "provider": "DigitalOcean-hosted DeepSeek"
+    },
+    "alibaba-qwen3-32b": {
+      "input_usd_per_million": 0.25,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 0.55,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "openai/alibaba-qwen3-32b": {
+      "input_usd_per_million": 0.25,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 0.55,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "openai/openai/alibaba-qwen3-32b": {
+      "input_usd_per_million": 0.25,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 0.55,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "alibaba-qwen3-coder-flash": {
+      "input_usd_per_million": 0.45,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 1.70,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "qwen3-coder-flash": {
+      "input_usd_per_million": 0.45,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 1.70,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "qwen3.5-397b-a17b": {
+      "input_usd_per_million": 0.55,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 3.50,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "openai/qwen3.5-397b-a17b": {
+      "input_usd_per_million": 0.55,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 3.50,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "openai/openai/qwen3.5-397b-a17b": {
+      "input_usd_per_million": 0.55,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 3.50,
+      "provider": "DigitalOcean-hosted Alibaba"
+    },
+    "kimi-k2.6": {
+      "input_usd_per_million": 0.95,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 4.0,
+      "provider": "DigitalOcean-hosted Moonshot AI"
+    },
+    "openai/kimi-k2.6": {
+      "input_usd_per_million": 0.95,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 4.0,
+      "provider": "DigitalOcean-hosted Moonshot AI"
+    },
+    "openai/openai/kimi-k2.6": {
+      "input_usd_per_million": 0.95,
+      "cached_input_usd_per_million": null,
+      "output_usd_per_million": 4.0,
+      "provider": "DigitalOcean-hosted Moonshot AI"
+    }
+  }
+}
