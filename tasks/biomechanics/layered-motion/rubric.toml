@@ -1,0 +1,87 @@
+schema_version = "1.0"
+rubric_id = "layered-motion"
+task_id = "tasks/biomechanics/layered-motion"
+total_points = 1.0
+reward_file = "/logs/verifier/reward.json"
+details_file = "/logs/verifier/rubric_details.json"
+
+[philosophy]
+summary = "Grade hidden-prompt motion quality, not a prescribed optimization recipe."
+notes = [
+  "The agent receives frozen pretrained weights, source code, public data, diagnostics, and a strict compute budget.",
+  "The rubric rewards semantic execution, biomechanical plausibility, reference-distribution realism, and efficient inference.",
+  "Hidden prompts, hidden event specifications, private reference motions, private detector weights, and pass thresholds must remain verifier-only assets.",
+  "All checks execute the submitted generator and inspect generated canonical joint trajectories rather than source-code appearance."
+]
+
+[[criteria]]
+id = "artifact_contract"
+name = "Executable artifact contract"
+weight = 0.10
+grader = "tests/test_state.py::score_artifact_contract"
+description = "Checks /workspace/output/generate.py and method.json, artifact-size limit, CLI compatibility, and NPZ schema."
+subpoints = [
+  "0.02 generate.py exists and is executable by python",
+  "0.02 method.json has exactly the required fields",
+  "0.02 output directory is at most 512 MB",
+  "0.02 every requested motion_id is present in the NPZ",
+  "0.02 arrays have finite float32 shape (num_frames, 22, 3)"
+]
+
+[[criteria]]
+id = "determinism"
+name = "Fixed-seed determinism"
+weight = 0.10
+grader = "tests/test_state.py::score_determinism"
+description = "Runs selected hidden prompts twice with the same seed and requires reproducible joint arrays within numerical tolerance."
+
+[[criteria]]
+id = "event_semantics"
+name = "Ordered event semantics"
+weight = 0.35
+grader = "tests/score_submission.py::score_events"
+description = "Scores hidden structured prompt requirements: principal action presence, temporal order, repetition counts, sides, directions, simultaneous actions, pauses, and final poses."
+subpoints = [
+  "0.10 action presence",
+  "0.08 temporal order",
+  "0.06 repetition counts and durations",
+  "0.05 side, direction, and facing attributes",
+  "0.03 simultaneous-action handling",
+  "0.03 required final pose"
+]
+
+[[criteria]]
+id = "physical_plausibility"
+name = "Biomechanical and kinematic validity"
+weight = 0.25
+grader = "tests/physical_metrics.py::score_physics"
+description = "Penalizes foot skating, ground penetration, bone-length drift, implausible balance, root discontinuities, and unsmooth transitions."
+subpoints = [
+  "0.06 contact and foot skating",
+  "0.04 ground penetration",
+  "0.04 bone-length consistency",
+  "0.04 balance and center-of-mass behavior",
+  "0.05 transition smoothness",
+  "0.02 root trajectory continuity"
+]
+
+[[criteria]]
+id = "motion_distribution"
+name = "Reference-distribution motion quality"
+weight = 0.15
+grader = "tests/semantic_metrics.py::score_motion_distribution"
+description = "Compares low-dimensional motion features against hidden reference BVH feature distributions after temporal alignment and penalizes collapsed or static motions."
+
+[[criteria]]
+id = "efficiency"
+name = "Generation efficiency"
+weight = 0.05
+grader = "tests/efficiency_metrics.py::score_efficiency"
+description = "Profiles runtime, peak accelerator memory, and submitted artifact size using fixed hidden prompts and seeds."
+
+[[criteria]]
+id = "baseline_improvement"
+name = "Improvement over frozen baseline"
+weight = 0.10
+grader = "tests/score_submission.py::score_baseline_delta"
+description = "Requires positive aggregate improvement over the supplied frozen baseline on the hidden evaluation set while satisfying validity gates."
