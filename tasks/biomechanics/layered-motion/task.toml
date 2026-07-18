@@ -1,0 +1,46 @@
+schema_version = "1.0"
+
+[metadata]
+author_name = "Richa Sharma"
+author_email = "richa.flutr@gmail.com"
+category = "computational-physics"
+tags = [
+  "biomechanics",
+  "text-to-motion",
+  "human-motion",
+  "machine-learning",
+  "optimization",
+  "generative-models"
+]
+expert_time_estimate_hours = 4
+difficulty_explanation = "The agent must diagnose compositional text-to-motion failures, improve a frozen generative motion model under a fixed compute budget, and balance semantic execution, biomechanical validity, generalization, and inference efficiency."
+solution_explanation = "The reference solution uses frozen motion tokenization, clause-aware temporal conditioning, a small trainable adapter, candidate reranking, and contact-aware transition refinement."
+verification_explanation = "The verifier executes the submitted generator on hidden layered prompts, checks output validity and determinism, scores structured action events and biomechanical constraints, compares motion features against hidden reference distributions, profiles inference, and generates BVH/VRMA visual reports."
+rubric_path = "tasks/biomechanics/layered-motion/rubric.toml"
+
+[agent]
+timeout_sec = 14400.0
+user = "root"
+
+[environment]
+build_timeout_sec = 3600.0
+cpus = 8
+memory_mb = 32768
+storage_mb = 51200
+gpus = 1
+gpu_types = ["nvidia-t4", "nvidia-l4"]
+allow_internet = false
+
+[verifier]
+timeout_sec = 3600.0
+user = "root"
+environment_mode = "separate"
+
+[verifier.environment]
+build_timeout_sec = 3600.0
+cpus = 8
+memory_mb = 32768
+storage_mb = 51200
+gpus = 1
+gpu_types = ["nvidia-t4", "nvidia-l4"]
+allow_internet = false
