@@ -1,0 +1,6 @@
+{
+  "name": "synthetic-ci-fixture",
+  "description": "Minimal deterministic trajectory generator used only to validate the task harness. Production oracle assets are injected privately.",
+  "entrypoint": "/workspace/output/generate.py",
+  "model_delta_path": null
+}
