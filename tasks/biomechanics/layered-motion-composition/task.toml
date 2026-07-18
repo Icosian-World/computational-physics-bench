@@ -1,0 +1,32 @@
+schema_version = "1.0"
+
+[metadata]
+author_name = "Icosian World"
+author_email = "richa@icosian.ai"
+category = "computational-physics"
+tags = [
+  "biomechanics",
+  "text-to-motion",
+  "machine-learning",
+  "model-optimization",
+  "motion-generation",
+  "bvh"
+]
+expert_time_estimate_hours = 4
+difficulty_explanation = "The agent must diagnose failures of a frozen text-to-motion system on layered instructions, choose an efficient intervention, train or optimize within a limited GPU budget, and balance semantic order, biomechanical validity, generalization, and inference cost."
+solution_explanation = "A reference implementation will use the frozen motion tokenizer and base model, add a lightweight clause-aware planning or adaptation mechanism, refine transitions under contact constraints, and submit only a compact model delta and generator."
+verification_explanation = "The separate verifier executes the submitted generator on hidden procedurally paraphrased prompts, validates canonical joint outputs, scores event coverage and order, checks kinematic and biomechanical constraints, compares with private reference feature distributions and the frozen baseline, profiles runtime and memory, and produces BVH/VRMA visual reports."
+
+[verifier]
+timeout_sec = 3600.0
+
+[agent]
+timeout_sec = 14400.0
+
+[environment]
+build_timeout_sec = 3600.0
+cpus = 8
+memory_mb = 32768
+storage_mb = 51200
+gpus = 1
+allow_internet = false
